@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  nmaptoolkit.cmd:
+    container_name: nmaptoolkit.cmd
+    hostname: nmaptoolkit.cmd
+    image: ${DOCKER_REGISTRY-}nmaptoolkitcmd
+    build:
+      context: .
+      dockerfile: NmapToolKit.Cmd/Dockerfile
+    depends_on:
+    - basic-nginx
+    networks:
+    - dmz-std
+
+
+  basic-nginx:
+    container_name: basic-nginx
+    hostname: basic-nginx
+    image: nginx:latest
+    networks:
+    - dmz-std
+
+
+networks:
+  dmz-std:
+    internal: true
+    external: false
+  
